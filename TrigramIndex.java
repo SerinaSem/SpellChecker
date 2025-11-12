@@ -1,8 +1,8 @@
 import java.util.*;
 
 public class TrigramIndex {
-    private Map<String, List<String>> index = new HashMap<>();
-    private Set<String> dictionnaire = new HashSet<>();
+    private final Map<String, List<String>> index = new HashMap<>();
+    private final Set<String> dictionnaire = new HashSet<>();
 
     // ajoute un mot dans l’index
     public void ajouterMot(String mot) {

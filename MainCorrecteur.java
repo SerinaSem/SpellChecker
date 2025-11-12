@@ -12,8 +12,7 @@ public class MainCorrecteur {
     public static void main(String[] args) throws Exception {
         long debut = System.nanoTime();
 
-        //Chargement du dictionnaire
-        List<String> dico = lireFichier("minidico.txt"); // ou "dico.txt" pour la grande version
+        List<String> dico = lireFichier("dico.txt");
         TrigramIndex index = new TrigramIndex();
         index.construire(dico);
 
@@ -21,16 +20,14 @@ public class MainCorrecteur {
         System.out.println("Dictionnaire chargé : " + dico.size() + " mots");
         System.out.printf("Temps de construction : %.3f s%n", (t1 - debut) / 1e9);
 
-        //Chargement des fautes à corriger
         List<String> fautes = lireFichier("fautes.txt");
         System.out.println("Fichier de fautes : " + fautes.size() + " mots");
 
-        //Correction de chaque mot fautif
         for (String motFautif : fautes) {
             String mot = motFautif.trim().toLowerCase();
 
             if (index.contient(mot)) {
-                System.out.println(mot + " → correct");
+                System.out.println(mot + " --> correct");
             } else {
                 List<String> candidats = index.candidats(mot, 100);
                 candidats.sort(Comparator.comparingInt(c -> Levenshtein.distance(mot, c)));
